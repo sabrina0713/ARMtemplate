@@ -1,10 +1,13 @@
 name: SQL for GitHub Actions
 
+name: SQL for GitHub Actions
+
 on:
 push:
     branches: [ master ]
 pull_request:
     branches: [ master ]
+
 
 jobs:
 build:
@@ -14,8 +17,14 @@ build:
     - uses: azure/login@v1
     with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - uses: azure/sql-action@v1
-      with:
-        server-name: SQL_SERVER_NAME
-        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        sql-file: './Database.dacpac'
+
+- uses: azure/sql-action@v1
+  with:
+    server-name: SQL_SERVER_NAME
+    connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
+    sql-file: './Database.dacpac'
+
+    # Azure logout 
+- name: logout
+  run: |
+     az logout
