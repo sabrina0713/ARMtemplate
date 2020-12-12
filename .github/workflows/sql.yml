@@ -1,16 +1,8 @@
-name: SQL for GitHub Actions
-
-name: SQL for GitHub Actions
-
-on:
-push:
-    branches: [ master ]
-pull_request:
-    branches: [ master ]
-
+# .github/workflows/sql-deploy.yml
+on: [push]
 
 jobs:
-build:
+  build:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v1
@@ -19,8 +11,6 @@ build:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - uses: azure/sql-action@v1
       with:
-        server-name: SQL_SERVER_NAME
+        server-name: REPLACE_THIS_WITH_YOUR_SQL_SERVER_NAME
         connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        sql-file: './Database.dacpac'
-
-  
+        dacpac-package: './Database.dacpac'
